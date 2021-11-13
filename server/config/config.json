@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "trentarnold",
+    "password": "trent123",
+    "database": "decide_for_me",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "trentarnold",
+    "password": "trent123",
+    "database": "decide_for_me",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "trentarnold",
+    "password": "trent123",
+    "database": "decide_for_me",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

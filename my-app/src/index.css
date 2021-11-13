@@ -1,0 +1,253 @@
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-image: url('./img/moroccan-flower.png') !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* Navbar */
+
+.navbar {
+  background-color: rgba(128, 0, 0);
+  display: flex;
+  justify-content: space-between;
+  font-size: 10rem;
+  padding:13px;
+  position: sticky;
+  top:0;
+  z-index: 1;
+}
+
+/* restaurant details */
+.restaurant-mini-details {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  border: 1px solid maroon;
+  border-radius: 1rem;
+  width:50vw;
+  margin: 10px;
+  box-shadow: 5px 2px 2px black;
+  background-color: white;
+}
+.title-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  /* background-color: maroon;
+  color: white; */
+  color:rgba(128, 0, 0);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom: 2px solid rgba(128, 0, 0);
+  width: 50vw;
+
+}
+.restaurant-mini-details-title {
+  margin-right: 5px;
+  /* display: flex;
+  justify-content: space-between; */
+}
+.price-rating-restaurant {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* align-items: center; */
+  font-size: 1.2rem;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+.restaurant-location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.button-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+  width:95%;
+  margin: 10px;
+}
+
+/* restaurant list */
+.restauraunt-list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-holder, .restaurant-details-content-holder {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  width:50vw;
+}
+.restaurant-search {
+  background-color: transparent;
+  min-height: calc(100vh - 66px);
+}
+.restaurant-list-image {
+  margin: 20px;
+}
+/* buttons */
+
+.btn {
+  font-size: 1rem;
+  padding:.2em;
+  padding-left: .4em;
+  padding-right: .4em;
+  border-radius: .5em;
+}
+.btn.colored {
+  background-color: rgba(128, 0, 0);
+  color:white;
+  border: none;
+}
+.btn:hover, .btn:focus, .btn:active {
+  cursor: pointer;
+  box-shadow:0 0 1px 2px white, 0 1px 1px white;
+}
+.btn.colored:hover {
+  background-color: rgba(128, 0, 0, .8);
+}
+.btn.link {
+  background-color: transparent;
+  border: none;
+  color: rgba(128, 0, 0);
+  font-weight: 300;
+
+}
+.btn.link:hover, .btn.link:focus {
+  color: rgba(128, 0, 0, .7);
+  background-color: transparent;
+  box-shadow: 0 0 1px 2px maroon, 0 1px 1px maroon;
+
+}
+.restaurant-search {
+  display:flex;
+  justify-content: space-around;
+}
+.restaurant-details-website {
+  color:rgba(128, 0, 0);
+  font-style: italic;
+  margin-left: 25px;
+}
+.restaurant-details-website:hover {
+  color: rgba(128, 0, 0, .7);
+}
+.restaurant-type {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.3rem;
+  font-style:italic;
+  font-weight: 400;
+  color: rgb(168, 167, 167);
+}
+.restaurant-details-content-holder {
+  justify-content: space-around;
+}
+.restaurant-advanced-details {
+  font-size: 1.3rem;
+  /* overflow-wrap: normal; */
+  max-width: 25vw;
+}
+
+.selector {
+  /* color: rgba(128, 0, 0); */
+  margin-bottom: 10px;
+}
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20vw;
+  margin: 10px;
+  text-align: center;
+}
+.form-holder {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  text-align: center;
+  border: 1px solid maroon;
+  border-radius: 1rem;
+  box-shadow: 5px 2px 2px black;
+  background-color: white;
+}
+.form-holder.small {
+  width: fit-content;
+}
+.form-title {
+  background-color: rgba(128, 0, 0);
+  font-size: 1.8rem;
+  color: white;
+  font-weight: 300;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header {
+  color:white;
+  background-color: rgba(128, 0, 0);
+  text-align: center;
+}
+.modal-member {
+  display: flex;
+  align-items: center;
+}
+/* Spinner */
+.sweet-loading {
+  margin-top: 100px;
+  width: 51vw;
+}
+
+/* reviews */
+.reviews {
+  display:flex;
+  /* background-color: lightgray; */
+  /* padding:10px; */
+  align-items: center;
+  justify-content: space-between;
+}
+.reviews-text {
+  font-size: 1rem;
+  max-height: 15vh;
+  overflow-y: scroll;
+}
+.reviews-text-rating-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+  max-width: 80%;
+}
+.reviews-rating-profile {
+  margin: 10px;
+}
+.reviews-content-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.margin-top {
+  margin-top: 8px;
+}
