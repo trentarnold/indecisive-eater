@@ -2,7 +2,8 @@ import {useEffect, useState} from 'react'
 import StarRatings from 'react-star-ratings'
 import { FaDollarSign, FaPhone, FaHome } from 'react-icons/fa';
 import { ReviewsCard } from './ReviewsCard';
-import apiService from '../apiService'
+import apiService from '../apiService';
+import ImageCarousel from './ImageCarousel';
 type Props = {
   restaurant:any,
 }
@@ -30,16 +31,15 @@ const initialValue:individualRestaurantDetails = {
 
 const IndividualRestaurantDetails:React.FC<Props>  = ({restaurant}) =>{
   const [individualRestaurant, setIndividualRestaurant] = useState(initialValue);
-  const [imageSrc, setImageSrc] = useState('');
   const [index, setIndex] = useState(0);
   const [closesAt, setClosesAt] = useState('');
+  const [images, setImages] = useState([]);
+
    const getRestaurant = async () => {
     const result = await apiService.getIndividualRestaurant(restaurant.place_id);
     getClosingTime(result.opening_hours.weekday_text)
-    const apiKey = `AIzaSyAw5C1mmO1RHuWJD3Ssj1Z_PVAzLhOMIVc`
-    const imageReference = result.photos[0].photo_reference;
-    const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${imageReference}&key=${apiKey}`;
-    setImageSrc(url);
+    const imageReferences = result.photos.map((photo:any) => photo.photo_reference)
+    setImages(imageReferences);
     setIndividualRestaurant(result);
    }
 
@@ -127,7 +127,8 @@ const IndividualRestaurantDetails:React.FC<Props>  = ({restaurant}) =>{
       </div>
     </div>
     <div>
-      <img src={imageSrc} alt='restaurant' />
+    <ImageCarousel images = {images}/>
+      {/* <img src={imageSrc} alt='restaurant' /> */}
     </div>
   </div>}
   </>

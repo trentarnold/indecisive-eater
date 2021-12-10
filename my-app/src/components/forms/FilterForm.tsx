@@ -6,36 +6,37 @@ import { Restaurant } from '../../restaurantType'
 type Props = {
   location: Location,
   home?:boolean,
-  setLocalRestaurants: React.Dispatch<React.SetStateAction<Array<Restaurant>>>
+  setLocalRestaurants: React.Dispatch<React.SetStateAction<Array<Restaurant>>>,
+  isLoading:boolean,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
 }
 type Location = {
   lat:String,
   lng:String
 }
 
-const FilterForm: React.FC<Props> = ({location,  home, setLocalRestaurants }) => {
+const FilterForm: React.FC<Props> = ({location,  home, setLocalRestaurants, isLoading, setIsLoading }) => {
 const [dining, setDining] = useState('food');
 const [price, setPrice] = useState('any');
 const [distance, setDistance] = useState('8046');
 
 const handleGroupSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  setIsLoading(true)
   const restaurants = await apiService.getLocalRestaurants(location.lat, location.lng, dining, price, distance);
   setLocalRestaurants(restaurants);
+  setIsLoading(false)
 }
 
 
-const handleIndividualSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  // getIndividualRestaurant();
-}
+// const handleIndividualSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+//   // getIndividualRestaurant();
+// }
   return (
     <div className = {home ? 'form-holder small': 'form-holder'}>
       {/* <Title />  */}
-    <form className='filter-form' onSubmit={(e:React.FormEvent<HTMLFormElement>) => {
-      home ? handleIndividualSubmit(e) :
-      handleGroupSubmit(e)
-      }}>
+    <form className='filter-form' onSubmit={(e:React.FormEvent<HTMLFormElement>) => { handleGroupSubmit(e) }}>
       <FormControl textAlign='center'>
         <FormLabel textAlign='center' fontSize='1.5rem'> Dining Location: </FormLabel>
         <Select 
@@ -97,7 +98,7 @@ const handleIndividualSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         <option className ='option' value='32186'> 20 miles</option>
       </Select>
       </FormControl>
-      <Button textAlign='center' fontSize='1.2rem' className='btn colored' type='submit'>{home ? 'Decide for me!' : 'Find local restaurants'}</Button>
+      <Button textAlign='center' fontSize='1.2rem' className='btn colored' type='submit'>{home ? 'Apply filters' : 'Find local restaurants'}</Button>
     </form>
     </div>
   )

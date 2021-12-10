@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import {Button, Flex} from '@chakra-ui/react';
 import StarRatings from 'react-star-ratings';
 import { FaArrowRight} from 'react-icons/fa';
@@ -30,13 +29,22 @@ export const ReviewsCard :React.FC<Props> = ({review, setIndex, index}) => {
       </Flex>
           <div className='reviews'>
             <div className='reviews-rating-profile'>
-                <img src={review.profile_photo_url} alt="profile" style={{height: '15vh', width:'15vw'}}></img>
+                <img src={review.profile_photo_url} alt="profile" style={{height: '15vh', maxWidth:'12vw'}}></img>
             </div>
             <div className='reviews-text-rating-holder'>
               <div className='reviews-text'>"{review.text}" - {review.author_name}  </div>
             </div>
-            <Button style ={{backgroundColor:'transparent'}}> 
-            <FaArrowRight size={70} style={{color:'lightgray', justifySelf:'flex-end'}}
+            <Button
+            className='colored btn'  
+            _focus={{
+              boxShadow:
+              "0 0 1px 2px transparent, 0 1px 1px transparent", }}
+            _hover={{
+              boxShadow:
+              "0 0 1px 2px maroon, 0 1px 1px maroon", }}
+            style ={{backgroundColor:'transparent'}}>
+               
+            <FaArrowRight size={70} style={{color:'maroon', justifySelf:'flex-end', minWidth:'1vw', maxWidth:'1vw'}}
              onClick = {() => {
                let newNumber = index + 1;
                setIndex(newNumber)}}/> </Button>

@@ -4,27 +4,29 @@ import {FaDollarSign} from 'react-icons/fa';
 import {Restaurant} from '../restaurantType'
 import { useState, useEffect } from 'react';
 import {
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
+  Button,
+  ModalCloseButton
  } from '@chakra-ui/react'
-  import { useDisclosure } from '@chakra-ui/hooks';
+import { useDisclosure } from '@chakra-ui/hooks';
 import IndividualRestaurantModal from './IndividualRestaurantModal';
+import { on } from 'cluster';
 type Props = {
-  restaurant: Restaurant
+  restaurant: Restaurant,
+  handleAddOrRemoveFromFavorites: (addToFavorites:boolean, userId:number, title:string) =>void,
+  userId: number
 }
 
-const Restauraunts: React.FC<Props>  = ({restaurant}) => {
+const Restauraunts: React.FC<Props>  = ({restaurant, handleAddOrRemoveFromFavorites, userId}) => {
   const [imageSrc, setImageSrc] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     if(!restaurant) return
-    const apiKey = `AIzaSyAw5C1mmO1RHuWJD3Ssj1Z_PVAzLhOMIVc`
+    const apiKey =`${process.env.REACT_APP_API_KEY}`;
     const imageReference = restaurant.photos[0].photo_reference;
     const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&maxheight=200&photo_reference=${imageReference}&key=${apiKey}`;
     setImageSrc(url);
@@ -37,7 +39,7 @@ const Restauraunts: React.FC<Props>  = ({restaurant}) => {
     }
     return <div style = {{color:'gray', display:'flex', marginLeft:'5px'}}> {rows.map((row, ind) => <div key={ind}> {row} </div>)} </div>;
   }
-  
+
   return (
     <div className='restaurant-mini-details'>
       <div> 
@@ -48,8 +50,7 @@ const Restauraunts: React.FC<Props>  = ({restaurant}) => {
       <div className='content-holder'>
           <img src={imageSrc} className='restaurant-list-image' alt='restauraunt front' style ={{height:'200px', width:'200px'}}></img>
           <div className='restaurant-location'>
-            <p>{"Address" } </p>
-             <p>{restaurant.vicinity} </p>
+             <p className='restaurant-vicinity'>{restaurant.vicinity} </p>
           </div>
           <div className='price-rating-restaurant'>
           <div style={ {display:'flex',
@@ -63,19 +64,16 @@ const Restauraunts: React.FC<Props>  = ({restaurant}) => {
       />  ({restaurant.user_ratings_total})</div>
         </div>
       </div>
-      <ButtonHolder onOpen = {onOpen}/>
+      <ButtonHolder onOpen = {onOpen} handleAddOrRemoveFromFavorites = {handleAddOrRemoveFromFavorites}
+       title = {restaurant.name} userId = {userId} favorited = {restaurant.favorited} />
       <Modal isOpen={isOpen} onClose={onClose} >
         <ModalOverlay />
-          <ModalContent maxW="fit-content">
-            <ModalBody padding='0'>
+          <ModalContent maxW="fit-content" style={{backgroundColor:'transparent'}}>
+            <ModalBody padding='0' >
+              <ModalCloseButton className='link btn'/>
               < IndividualRestaurantModal restaurant = {restaurant} />
+              {/* <Button onClick={() => onClose}>Close</Button> */}
             </ModalBody>
-
-            {/* <ModalFooter>
-                <Button colorScheme="blue" mr={3} onClick={onClose}>
-                  Close
-                </Button>
-                </ModalFooter> */}
           </ModalContent>
       </Modal>
     </div>

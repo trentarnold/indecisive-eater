@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         through: 'users_groups', 
         as: 'groups' 
       });
+      this.belongsToMany(models.FavoriteRestaurants, { 
+        foreignKey: 'userId', 
+        through: 'UserFavoriteRestaurant', 
+        as: 'FavoriteRestaurants' 
+      });
     }
   };
   User.init({

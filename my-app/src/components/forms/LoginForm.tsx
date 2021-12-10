@@ -5,30 +5,31 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   FormLabel,
   FormControl,
-  Avatar,
   InputLeftElement,
   InputGroup,
-  Flex,
-  Input } from '@chakra-ui/react'
+  Input,
+  ModalHeader,
+  Avatar } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks';
 import { FaLock, FaUserAlt} from 'react-icons/fa';
 import { Location } from '../../Location';
-
+import {  useNavigate } from "react-router-dom";
 
 type Props = {
   openLogin: Boolean,
-  setLocation: React.Dispatch<React.SetStateAction<Location>>
+  setLocation: React.Dispatch<React.SetStateAction<Location>>,
+  setUserId: React.Dispatch<React.SetStateAction<number>>
 }
 
- const LoginForm: React.FC<Props> = ({openLogin, setLocation }) => {
+ const LoginForm: React.FC<Props> = ({openLogin, setLocation, setUserId }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
+  let navigate = useNavigate();
   useEffect(() => {
     if(openLogin){
       onOpen()}
@@ -40,21 +41,25 @@ type Props = {
     const res = await apiService.login(user);
     if (res.err) {
       alert(`${res.message}`);
-      setEmail('');
-      setPassword('');
     } else {
-      const { accessToken, lat, lng } = res;
+      const { accessToken, lat, lng, id } = res;
       setLocation({lat, lng});
+      setUserId(id)
       localStorage.setItem('accessToken', accessToken);
       onClose()
+      navigate('/welcomePage')
       // props.setIsAuthenticated(true);
     }
 
   }
   return (
-    <Modal closeOnOverlayClick={false} closeOnEsc={false} isOpen={isOpen} onClose = {onClose} >
+    <Modal closeOnOverlayClick={false} closeOnEsc={false} isOpen={isOpen} onClose = {onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
+      <ModalHeader className='modal-header'>
+              <Avatar bg='red.1000'/>
+              <div> Log In! </div>
+      </ModalHeader >
       <form onSubmit = {(e:React.FormEvent<HTMLFormElement>) => handleSubmit(e)}>
         <ModalBody pb={6}>
             <FormControl isRequired>
@@ -84,6 +89,7 @@ type Props = {
                       children={<FaLock color="gray.300" />}
                     />
                   <Input 
+                    type='password'
                     _focus={{
                     boxShadow: "0 0 1px 2px maroon, 0 1px 1px maroon", }} 
                     errorBorderColor="red.300"  

@@ -6,11 +6,13 @@ import { Restaurant } from '../restaurantType';
 import { ReviewsCard } from './ReviewsCard';
 import apiService from '../apiService'
 import {FaPhone, FaHome} from 'react-icons/fa';
+import ImageCarousel from './ImageCarousel'
 type Props = {
   restaurant:any,
   pickNextRestaurant: (restaurant:Array<Restaurant>) =>void,
-  restaurantsToPickOne: Array<Restaurant>
+  restaurantsToPickOne: Array<Restaurant>,
 }
+
 type individualRestaurantDetails = {
   types: Array<string>,
   reviews: Array<reviews>,
@@ -20,9 +22,11 @@ type individualRestaurantDetails = {
   photos:any,
   opening_hours:any
 }
+
 type reviews ={
   text:string
 }
+
 const initialValue:individualRestaurantDetails = {
   types: ['bar'],
   reviews: [{text:'good'}],
@@ -35,17 +39,15 @@ const initialValue:individualRestaurantDetails = {
 
 const IndividualRestaurantDetails:React.FC<Props>  = ({restaurant, pickNextRestaurant, restaurantsToPickOne}) =>{
   const [individualRestaurant, setIndividualRestaurant] = useState(initialValue);
-  const [imageSrc, setImageSrc] = useState('');
   const [index, setIndex] = useState(0);
   const [closesAt, setClosesAt] = useState('');
+  const [images, setImages] = useState([]);
    const getRestaurant = async () => {
-    const result = await apiService.getIndividualRestaurant(restaurant.place_id);
-    getClosingTime(result.opening_hours.weekday_text)
-    const apiKey = `AIzaSyAw5C1mmO1RHuWJD3Ssj1Z_PVAzLhOMIVc`
-    const imageReference = result.photos[0].photo_reference;
-    const url = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${imageReference}&key=${apiKey}`;
-    setImageSrc(url);
-    setIndividualRestaurant(result);
+      const result = await apiService.getIndividualRestaurant(restaurant.place_id);
+      getClosingTime(result.opening_hours.weekday_text)
+      const imageReferences = result.photos.map((photo:any) => photo.photo_reference)
+      setImages(imageReferences);
+      setIndividualRestaurant(result);
    }
 
   useEffect(() => {
@@ -132,11 +134,10 @@ const IndividualRestaurantDetails:React.FC<Props>  = ({restaurant, pickNextResta
         </div>
       </div>
     </div>
-    <div>
-      <img src={imageSrc} style ={{height:'200px', width:'200px'}}alt='restaurant' />
+      <ImageCarousel images = {images}/>
+      {/* <img src={imageSrc} style ={{height:'200px', width:'200px'}}alt='restaurant' /> */}
       {/* <ImageCard photos = {} /> */}
-    </div>
-    <Button onClick = {(e) =>pickNextRestaurant(restaurantsToPickOne)}> Roll Again </Button>
+    <Button className='colored btn' onClick = {(e) =>pickNextRestaurant(restaurantsToPickOne)}> Roll Again </Button>
   </div>}
   </>
   )

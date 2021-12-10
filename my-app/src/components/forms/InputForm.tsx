@@ -15,20 +15,23 @@ import {
   InputGroup,
   Flex,
   Input } from '@chakra-ui/react'
-import { useDisclosure } from '@chakra-ui/hooks';
+import { useDisclosure, useUpdateEffect } from '@chakra-ui/hooks';
 import {FaRoad, FaHome, FaMap, FaLock, FaUserAlt} from 'react-icons/fa';
 import { Location } from '../../Location'
-import LoginForm from './LoginForm';
-//dining, setDining, setRandomlySelectOne 
+import {  useNavigate } from "react-router-dom";
+
 
 type Props = {
   setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>,
   setLocation: React.Dispatch<React.SetStateAction<Location>>,
-  openLogin: boolean
+  openLogin: boolean,
+  setUserId: React.Dispatch<React.SetStateAction<number>>,
+  location: Location
 }
 
 
-const InputForm: React.FC<Props> = ({setOpenLogin, openLogin, setLocation}) => {
+const InputForm: React.FC<Props> = ({setOpenLogin, openLogin, setLocation, setUserId, location}) => {
+  let navigate = useNavigate();
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -36,10 +39,21 @@ const InputForm: React.FC<Props> = ({setOpenLogin, openLogin, setLocation}) => {
   const [password, setPassword] = useState('');
   // const [openOtherModule, setOpenOtherModule] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  console.log(location, 'location2')
+  console.log('hello')
   useEffect(() => {
     onOpen()
   }, []);
+
+
+  useEffect(() => {
+    if(location.lat === '' && location.lng=== ''){
+      console.log('no location!');
+      setOpenLogin(false);
+      onOpen()
+    }
+  }, [location, onOpen])
+
 
   const handleSubmit = async(e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,11 +66,13 @@ const InputForm: React.FC<Props> = ({setOpenLogin, openLogin, setLocation}) => {
    if (res.error) {
     alert(`${res.message}`);
   } else {
-    const { accessToken, lat, lng } = res;
+    const { accessToken, lat, lng, id } = res;
     console.log(lat, lng)
     setLocation({lat, lng});
+    setUserId(id)
     localStorage.setItem('accessToken', accessToken);
     onClose();
+    navigate('/welcomePage')
     //props.setIsAuthenticated(true);
     // auth.login(() => props.history.push('/profile'));
   }
@@ -67,7 +83,7 @@ const InputForm: React.FC<Props> = ({setOpenLogin, openLogin, setLocation}) => {
     setPassword('');
   }
   return (
-    <Modal closeOnOverlayClick={false} closeOnEsc={false} isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal closeOnOverlayClick={false} closeOnEsc={false} isOpen={isOpen} onClose={onClose} isCentered >
        <ModalOverlay />
        <Flex flexDirection='column' justifyContent='center' alignItems='center'>
          <ModalContent >

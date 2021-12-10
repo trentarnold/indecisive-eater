@@ -17,7 +17,7 @@ const getAll = async(req:Request, res:Response) => {
 
 const createUser = async(req:Request, res:Response) => {
   try {
-    const {password, email, lat, lng, groups} = req.body;
+    const {password, email, lat, lng, groups, FavoriteRestaurants} = req.body;
     const user = await db.User.findOne({ where: { email }})
     // const project = await Project.findOne({ where: { title: 'My Title' } });
     if (user) {
@@ -33,17 +33,22 @@ const createUser = async(req:Request, res:Response) => {
       lat,
       lng,
       groups,
+      FavoriteRestaurants,
       include:[
         {
           model: db.groups,
           as: 'groups',
           through: db.users_groups,
+        },
+        {
+          modle: db.FavoriteRestaurants,
+          as: 'FavoriteRestaurants',
+          through: db.UserFavoriteRestaurant
         }
       ]
     })
-    
     const accessToken = jwt.sign({ id }, SECRET_KEY);
-      res.status(201).send( { accessToken, lat , lng  } )
+      res.status(201).send( { accessToken, lat , lng, id  } )
   }catch(err) {
     console.log(err);
      res.status(400).send({ err , message: 'Could not create user' })
@@ -59,7 +64,7 @@ const loginUser = async(req:Request, res:Response) => {
     const validatedPassword = await bcrypt.compare(password, user.password);
     if (validatedPassword) {
       const accessToken = jwt.sign({ id: user.id }, SECRET_KEY);
-      res.status(200).send({ accessToken, lat:user.lat, lng: user.lng });
+      res.status(200).send({ accessToken, lat:user.lat, lng: user.lng, id: user.id });
     }else {
       throw new Error()
     }
@@ -67,6 +72,34 @@ const loginUser = async(req:Request, res:Response) => {
     res.status(401).send({err, message: "Either the username or password ain't workin"})
   }
 }
+const getFavoriteRestaurants = async(req:Request, res:Response) => {
+  const userId = req.params.userId;
+  try {
+    const results = await db.User.findAll({
+      where: { id: userId },
+      attributes: ['id'],
+      include: {
+        model: db.FavoriteRestaurants,
+        as: 'FavoriteRestaurants',
+        attributes: ['id', 'title'],
+      },
+    });
+    res.send(results)
+  } catch (e) {
+    console.log('error creating group:', e);
+    res.status(500).send(`Failed: ${e}`);
+  }
+}
+
+
+
+
+
+
+
+
+
+
 const createGroup = async(req:Request, res:Response) => {
   const {groupName} = req.body;
   try {
@@ -92,24 +125,8 @@ const addUserToGroup = async(req:Request, res:Response) => {
     res.send(err)
   }
 }
-const getGroup = async(req:Request, res:Response) => {
-  const groupId = req.params.groupId;
-  try {
-    const results = await db.User.findAll({
-      where: { id: groupId },
-      attributes: ['id'],
-      include: {
-        model: db.groups,
-        as: 'groups',
-        attributes: ['id', 'groupName'],
-      },
-    });
-    res.send(results)
-  } catch (e) {
-    console.log('error creating group:', e);
-    res.status(500).send(`Failed: ${e}`);
-  }
-}
 
 
-module.exports = {createUser, getAll, loginUser, createGroup, addUserToGroup, getGroup}
+
+
+module.exports = {createUser, getAll, loginUser, createGroup, addUserToGroup, getFavoriteRestaurants}
