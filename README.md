@@ -2,8 +2,11 @@
 Indecisive Eater is all about loving food but hating to make decisions! When you first get to the page, make an account providing your street address. From there if you go to the decide for me section it will bring up a random restaurant. Click roll again to find another restaurant. Apply any specific filters you want on the right hand side. On the local restaurants tab, you are able to see a list of local restaurants, and you can favorite them. The favorites tab has an option to pick a random restaurant from your favorites. 
 
 
+## Screen Shots
+[Create Account Modal](/Screenshots/CreateAccount.png) [Welcome Page](/Screenshots/WelcomePage.png) 
+[Decide For Me](/Screenshots/DecideForMe!.png) [Local Restaurants](/Screenshots/LocalRestaurants.png)
 ## getting started
-To start this app you will need to run npm i in both the my-app and the server directories. Follow the individual README.md's in both the client and server directories for information on how to set up your api keys and config/.env files!
+To start this app you will need to run npm i in both the my-app and the server directories. Follow the individual README.md's in both the client and server directories for information on how to set up your api keys and config/.env files! [Client Readme](/my-app/README.md)[Server Readme](/server/README.md)
 
 ### Tech Stack
 On the front end this app uses React, Chakra UI (for styling the forms, buttons and modals), and Typescript.
