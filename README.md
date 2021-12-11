@@ -3,8 +3,8 @@ Indecisive Eater is all about loving food but hating to make decisions! When you
 
 
 ## Screen Shots
-[Create Account Modal](/Screenshots/CreateAccount.png?raw=true) [Welcome Page](/Screenshots/WelcomePage.png?raw=true) 
-[Decide For Me](/Screenshots/DecideForMe!.png?raw=true) [Local Restaurants](/Screenshots/LocalRestaurants.png?raw=true)
+![Create Account Modal](/Screenshots/CreateAccount.png?raw=true) ![Welcome Page](/Screenshots/WelcomePage.png?raw=true) 
+![Decide For Me](/Screenshots/DecideForMe!.png?raw=true) ![Local Restaurants](/Screenshots/LocalRestaurants.png?raw=true)
 ## getting started
 Clone the repo
 git clone https://github.com/junagao/woofie.git
