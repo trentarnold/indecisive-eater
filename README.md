@@ -1,4 +1,4 @@
-# indecisive-eater
+# Indecisive Eater
 Indecisive Eater is all about loving food but hating to make decisions! When you first get to the page, make an account providing your street address. From there if you go to the decide for me section it will bring up a random restaurant. Click roll again to find another restaurant. Apply any specific filters you want on the right hand side. On the local restaurants tab, you are able to see a list of local restaurants, and you can favorite them. The favorites tab has an option to pick a random restaurant from your favorites. 
 
 
