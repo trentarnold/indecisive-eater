@@ -14,17 +14,13 @@ Clone the repo
 Install dependencies
 `npm install`
 
-`npm start` 
-
-to run the client side app;
+`npm start`  to run the client side app;
 
 `cd ../server`
 
 `npm install`
 
-Start development server
-
-`npm start`
+Start development server   `npm start`
 
 To start this app you will need to run npm i in both the my-app and the server directories. Follow the individual README.md's in both the client and server directories for information on how to set up your api keys and config/.env files! 
 
