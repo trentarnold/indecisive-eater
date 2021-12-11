@@ -29,7 +29,22 @@ To start this app you will need to run npm i in both the my-app and the server d
 [Server Readme](/server/README.md)
 
 ### Tech Stack
-On the front end this app uses React, Chakra UI (for styling the forms, buttons and modals), and Typescript.
-On the back end the server is created with Express. The database is  PostgreSQL. The ORM is Sequelize. Typescript throughout the entire back-end. The database was created using Sequelize CLI, thus the migrations folder.  
+#### Front-end
+[React](https://reactjs.org/)
+
+[Chakra UI](https://chakra-ui.com/)
+
+[Typescript](https://www.typescriptlang.org/)
+
+#### Back-end
+[Node](https://nodejs.dev/)
+
+[Express](https://expressjs.com/)
+
+[PostgreSQL](https://www.postgresql.org/)
+
+[Typescript](https://www.typescriptlang.org/)
+
+
 
 
