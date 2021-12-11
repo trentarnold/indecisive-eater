@@ -3,9 +3,17 @@ Indecisive Eater is all about loving food but hating to make decisions! When you
 
 
 ## Screen Shots
-[Create Account Modal](/Screenshots/CreateAccount.png) [Welcome Page](/Screenshots/WelcomePage.png) 
-[Decide For Me](/Screenshots/DecideForMe!.png) [Local Restaurants](/Screenshots/LocalRestaurants.png)
+[Create Account Modal](/Screenshots/CreateAccount.png?raw=true) [Welcome Page](/Screenshots/WelcomePage.png?raw=true) 
+[Decide For Me](/Screenshots/DecideForMe!.png?raw=true) [Local Restaurants](/Screenshots/LocalRestaurants.png?raw=true)
 ## getting started
+Clone the repo
+git clone https://github.com/junagao/woofie.git
+cd woofie
+Install dependencies
+npm install
+Start development server
+npm start
+Scan the barcode with the Expo app on your phone or follow the terminal instructions to load up the emulator on your machine.
 To start this app you will need to run npm i in both the my-app and the server directories. Follow the individual README.md's in both the client and server directories for information on how to set up your api keys and config/.env files! [Client Readme](/my-app/README.md)[Server Readme](/server/README.md)
 
 ### Tech Stack
