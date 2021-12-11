@@ -26,7 +26,11 @@ Start development server
 
 `npm start`
 
-To start this app you will need to run npm i in both the my-app and the server directories. Follow the individual README.md's in both the client and server directories for information on how to set up your api keys and config/.env files! [Client Readme](/my-app/README.md)[Server Readme](/server/README.md)
+To start this app you will need to run npm i in both the my-app and the server directories. Follow the individual README.md's in both the client and server directories for information on how to set up your api keys and config/.env files! 
+
+[Client Readme](/my-app/README.md)
+
+[Server Readme](/server/README.md)
 
 ### Tech Stack
 On the front end this app uses React, Chakra UI (for styling the forms, buttons and modals), and Typescript.
